@@ -1,13 +1,19 @@
+//Import all dependencies and hooks
 import { useEffect,useState } from 'react';
-import './App.css';
 
-//Import in my premade components
-import GitHubCard from './Components/GitHubCard'
+
+
+
+//Import in my premade components and CSS styling
+import GitHubCard from './Components/GitHubCard';
+import                 './App.css';
 
 
 function App() {
   const gitHubUserName = 'akullyot';
+  //Purpose: holds fetched github information
   const [githubData, setGitHubData] = useState(null);
+  //Purpose: fetch github data on initial page render
   useEffect(() => {
     const fetchData = async(gitHubUserName) => {
       const url = `https://api.github.com/users/${gitHubUserName}`;
@@ -17,7 +23,7 @@ function App() {
     }
       fetchData(gitHubUserName);
   },[])
-  //Purpose: only displays user card once data is found
+  //Purpose: only displays user card once iff user is found
   const displayGitHubCard = (githubData && (githubData.message !== "Not Found" )) && <GitHubCard githubData={githubData} />;
   return (
     <div className="App">
