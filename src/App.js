@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useEffect,useState } from 'react';
 import './App.css';
 
+//Import in my premade components
+import GitHubCard from './Components/GitHubCard'
+
+
 function App() {
+  const gitHubUserName = 'akullyot';
+  const [githubData, setGitHubData] = useState(null);
+  useEffect(() => {
+    const fetchData = async(gitHubUserName) => {
+      const url = `https://api.github.com/users/${gitHubUserName}`;
+      const response = await fetch(url);
+      const responseJson = await response.json();
+      setGitHubData(responseJson);
+    }
+      fetchData(gitHubUserName);
+  },[])
+  //Purpose: only displays user card once data is found
+  const displayGitHubCard = (githubData && (githubData.message !== "Not Found" )) && <GitHubCard githubData={githubData} />;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>Contact Information for Annie Ullyot</h1>
+        {displayGitHubCard}
     </div>
   );
 }
