@@ -27,6 +27,7 @@ function App() {
   const displayGitHubCard = (githubData && (githubData.message !== "Not Found" )) && <GitHubCard githubData={githubData} />;
   return (
     <div className="App">
+
         <h1>Contact Information for Annie Ullyot</h1>
         {displayGitHubCard}
     </div>
